@@ -29,9 +29,10 @@ function removeLocalStorage(index){
 
 function removeAll(e){
     for(let i=0;i<listItem;i++){
-        removeLocalStorage(i);
         todos.removeChild(todos.firstChild);
     }
+    localStorage.clear();
+
 }
 
 form.addEventListener('submit', onSubmit);
@@ -61,6 +62,6 @@ function onSubmit(e){
         addLi(addList.value);
 }
 
-/*arrayList.forEach(todo => {
+arrayList.forEach(todos => {
     addLi(todo);
-});*/
+});
