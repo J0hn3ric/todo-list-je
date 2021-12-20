@@ -7,7 +7,7 @@ const remove=document.querySelector("#removeAll")
 var listItem=0;
 
 
-let arrayList=JSON.parse(localStorage.getItem("arrayList"))||[];
+let arrayList=JSON.parse(localStorage.getItem('todos'))||[];
 
 remove.addEventListener('click', removeAll);
 
@@ -22,24 +22,16 @@ todos.addEventListener('click', (e) =>{
 })
 
 function removeLocalStorage(index){
-    let storage=JSON.parse(localStorage.getItem("listItem"))||[];
+    let storage=JSON.parse(localStorage.getItem('todos'))||[];
     storage.splice(index,1);
-    localStorage.setItem('arrayList',JSON.stringify(storage))
+    localStorage.setItem('todos',JSON.stringify(storage))
 }
 
 function removeAll(e){
-    var i=0;
-    e.preventDefault();
-    console.log("elemenit nella lista ",listItem);
-    todos.childNodes.forEach(element => {
-        todos.removeChild(todos.childNodes[i]);
-        console.log(listItem);
-        i++;
-    });
-    /*for(;i<listItem;i++){
-        todos.removeChild(todos.childNodes[i]);
-    }*/
-
+    for(let i=0;i<listItem;i++){
+        removeLocalStorage(i);
+        todos.removeChild(todos.firstChild);
+    }
 }
 
 form.addEventListener('submit', onSubmit);
@@ -48,17 +40,12 @@ function addLi(text){
     const li=document.createElement('li');
     li.appendChild(document.createTextNode(text));
     todos.appendChild(li);
-    const btnCheck= document.createElement("button");
-    btnCheck.classList.add("btnCheck");
-    btnCheck.al
-    btnCheck.appendChild(document.createTextNode("\u2713"))
-    li.appendChild(btnCheck);
     const btnDelete = document.createElement("button");
     btnDelete.classList.add("btnDelete");
     btnDelete.appendChild(document.createTextNode("X"));
     li.appendChild(btnDelete);
     arrayList.push(li.outerHTML);
-    localStorage.setItem("arrayList",JSON.stringify(arrayList));
+    localStorage.setItem('todos',JSON.stringify(arrayList));
 
     addList.value='';
     listItem++;
@@ -74,3 +61,6 @@ function onSubmit(e){
         addLi(addList.value);
 }
 
+/*arrayList.forEach(todo => {
+    addLi(todo);
+});*/
